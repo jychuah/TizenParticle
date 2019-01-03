@@ -2,7 +2,10 @@
 /*jslint unparam: true */
 (function (tau) {
 	
-	function login(username, password) {	
+	function login(username, password) {
+		username="jychuah@gmail.com";
+		password="badpassword";
+		tau.openPopup("#loggingInPopup");
 		fetch(
 			"https://api.particle.io/oauth/token",
 			{
@@ -25,7 +28,11 @@
 			(error) => {
 				console.error("Error: ", error);
 			}
-		)
+		).finally(
+			() => {
+				tau.closePopup();
+			}
+		);
 	}
 	
 	function loginBtn() {
@@ -34,12 +41,6 @@
 		let password = document.getElementById("password").value;
 		console.log("Credentials:", email, password);
 		login(email, password);
-		/*
-		let success = true;
-		if (success) {
-			tau.changePage("#main");
-		}
-		*/
 	}
 	
 	function logoutBtn() {
