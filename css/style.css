@@ -1,0 +1,12 @@
+/* this file is left blank on purpose, if developer can't find classes he needs in framework, he can customize his
+app adding his own styles here
+ */
+ 
+.btn-icon-check::before {
+	background-color: rgba(245, 245, 245, 1);
+	-webkit-mask-image: url(../img/tw_ic_popup_btn_check.png);
+ }
+.btn-icon-cancel::before {
+	background-color: rgba(245, 245, 245, 1);
+	-webkit-mask-image: url(../img/tw_ic_popup_btn_delete.png);
+ }

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width,user-scalable=no">
+	<title>Particle.io</title>
+	<link rel="stylesheet" href="lib/tau/wearable/theme/default/tau.min.css">
+	<link rel="stylesheet" media="all and (-tizen-geometric-shape: circle)" href="lib/tau/wearable/theme/default/tau.circle.min.css">
+	<!-- load theme file for your application -->
+	<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+	<div class="ui-page" id="main">
+		<header class="ui-header">
+			<h3 class="ui-title">Particle.io</h3>
+		</header>
+		<div class="ui-content ui-content-padding">
+			Logged in as<br/>
+			<span id="loggedInEmail">jychuah@gmail.com</span>
+		</div>
+		<footer class="ui-footer ui-bottom-button">
+		   <a class="ui-btn" href="javascript:void()" id="logoutBtn">Log Out</a>
+		</footer>
+	</div>
+	<div id="logoutPopup" class="ui-popup">
+	    <div class="ui-popup-content">
+	       You will be logged out of the Particle.io Cloud
+	    </div>
+		<div class="ui-popup-footer ui-side-button ui-grid-col-2">
+			<a id="logoutCancelBtn" href="#" class="ui-btn btn-icon-cancel" data-rel="back">Cancel</a>
+			<a id="logoutOkBtn" href="#" class="ui-btn btn-icon-check">OK</a>
+		</div>
+	</div>
+	<div class="ui-page ui-page-active" id="login">
+		<header class="ui-header">
+			<h3 class="ui-title">Particle.io</h3>
+		</header>
+		<div class="ui-content ui-content-padding">
+			<p>
+				<input type="email" id="email" placeholder="E-mail address"/>
+			</p>
+			<p>
+				<input type="password" id="password" placeholder="Password"/>
+			</p>
+		</div>
+		<footer class="ui-footer ui-bottom-button">
+		   <a class="ui-btn" href="javascript:void()" id="loginBtn">Log In</a>
+		</footer>
+	</div>
+	<script src="lib/tau/wearable/js/tau.min.js"></script>
+	<script src="js/app.js"></script>
+	<script src="js/lowBatteryCheck.js"></script>
+	<script src="js/circle-helper.js"></script>
+</body>
+</html>

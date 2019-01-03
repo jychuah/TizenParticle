@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<widget xmlns:tizen="http://tizen.org/ns/widgets" xmlns="http://www.w3.org/ns/widgets" id="http://github.com/jychuah/ParticleWidget" version="1.0.0" viewmodes="maximized">
+    <access origin="*" subdomains="true"></access>
+    <tizen:app-widget id="24HYMZkXb4.ParticleWidget.ParticleWidget" primary="true">
+        <tizen:widget-label>News Briefing Widget</tizen:widget-label>
+        <tizen:widget-content src="widget/ParticleWidget/index.html">
+            <tizen:widget-size preview="widget/ParticleWidget/preview.png">2x2</tizen:widget-size>
+        </tizen:widget-content>
+    </tizen:app-widget>
+    <tizen:application id="24HYMZkXb4.ParticleWidget" package="24HYMZkXb4" required_version="2.3.2"/>
+    <content src="index.html"/>
+    <feature name="http://tizen.org/feature/screen.size.all"/>
+    <icon src="icon.png"/>
+    <name>Particle Widget</name>
+    <tizen:privilege name="http://tizen.org/privilege/internet"/>
+    <tizen:privilege name="http://tizen.org/privilege/application.launch"/>
+    <tizen:profile name="wearable"/>
+</widget>
