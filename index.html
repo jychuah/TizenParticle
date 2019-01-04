@@ -46,10 +46,28 @@
 		   <a class="ui-btn" href="javascript:void()" id="loginBtn">Log In</a>
 		</footer>
 	</div>
-	<div class="ui-popup" id="loggingInPopup">
+	<div class="ui-popup" id="splashPopup">
+		<div class="ui-popup-content">
+			<p>Particle.io</p>
+			<p><i class="icon-spinner fa fa-spin"></i></p>
+		</div>
+	</div>
+	<div class="ui-popup" id="loadingPopup">
 		<div class="ui-popup-content">
 			<p><i class="icon-spinner fa fa-spin"></i></p>
-			<p>Logging in to Particle.io</p>
+			<p id="loadingMessage">Logging in to Particle.io</p>
+		</div>
+	</div>
+	<div class="ui-popup" id="errorPopup">
+		<div class="ui-popup-content">
+			<p><i class="icon-exclamation-circle"></i></p>
+			<p id="errorMessage">Error</p>
+		</div>
+	</div>
+	<div class="ui-popup" id="successPopup">
+		<div clas="ui-popup-content">
+			<p><i class="icon-check-circle"></i></p>
+			<p id="successMessage">Success!</p>
 		</div>
 	</div>
 	<script src="lib/tau/wearable/js/tau.min.js"></script>

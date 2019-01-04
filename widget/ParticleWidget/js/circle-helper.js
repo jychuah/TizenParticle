@@ -1,6 +1,14 @@
 /*global tau */
 /*jslint unparam: true */
 (function (tau) {
+	
+	function events() {
+		document.addEventListener("DOMContentLoaded", function(event) {
+			var item = tizen.preference.getValue("test");
+			console.log("widget loaded value", item);
+			document.getElementById("output").innerHTML = item;
+		});
+	}
 
 	// This logic works only on circular device.
 	if (tau.support.shape.circle) {
@@ -25,4 +33,6 @@
 			}
 		});
 	}
+	
+	events();
 }(tau));
