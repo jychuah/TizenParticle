@@ -3,3 +3,4 @@
 .project
 .sign
 *.wgt
+**/.DS_Store
