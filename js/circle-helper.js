@@ -26,7 +26,7 @@
 					"Authorization" : "Basic cGFydGljbGU6cGFydGljbGU=",
 					"Content-Type" : "application/x-www-form-urlencoded"
 				},
-				body: encodeURI("expires_in=0&grant_type=password&username=" + username + "&password=" + password)
+				body: encodeURI("grant_type=password&username=" + username + "&password=" + password)
 			}
 		).then(
 			(response) => {
@@ -41,7 +41,7 @@
 					// Login success
 					console.log("Login success", response);
 					setPreference("access_token", response.access_token);
-					tryToken();
+					retrieveDevices();
 				}
 			}
 		).catch(
@@ -92,7 +92,7 @@
 		tau.openPopup("#logoutPopup");
 	}
 	
-	function tryToken() {
+	function retrieveDevices() {
 		if (preferences.access_token) {
 			console.log("Trying access token", preferences.access_token);
 			showLoadingPopup("Retrieving devices");
@@ -117,6 +117,7 @@
 						// Login success
 						console.log("Token success", response);
 						showSuccessPopup("Devices retrieved");
+						tau.changePage("#main");
 					}
 				}
 			).catch(
@@ -127,6 +128,10 @@
 			);
 		}
 	}
+	
+	function closePopup() {
+		tua.closePopup();
+	}
 		
 	function start() {
 		document.addEventListener("DOMContentLoaded", function(event) {
@@ -134,7 +139,8 @@
 			document.getElementById("logoutBtn").addEventListener("click", showLogoutPopup);
 			document.getElementById("logoutOkBtn").addEventListener("click", logoutBtn);
 			document.getElementById("loginBtn").addEventListener("click", loginBtn);
-			
+			document.getElementById("successPopup").addEventListener("click", closePopup);
+			document.getElementById("errorPopup").addEventListener("click", closePopup);
 			for (var property in preferences) {
 				if (tizen.preference.exists(property)) {
 					preferences[property] = tizen.preference.getValue(property);
@@ -146,7 +152,7 @@
 				document.getElementById("email").value = preferences.username;
 			}
 			tau.closePopup();
-			tryToken();
+			retrieveDevices();
 		});
 	}
 	
