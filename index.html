@@ -9,22 +9,17 @@
 	<link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-	<div class="ui-page" id="main">
-		<header class="ui-header">
-			<h3 class="ui-title">Particle.io</h3>
-		</header>
-		<div class="ui-content ui-content-padding">
-			<h3>Devices</h3>
-			<div>
-			</div>
-			<div>	
-				Logged in as<br/>
-				<span id="loggedInEmail">jychuah@gmail.com</span>
+	<div class="ui-page ui-page-active ui-indicator-circle-page" id="main">
+		<div class="ui-content">
+			<div id="devicePageIndicator" class="ui-page-indicator" data-layout="circular"></div>
+			<div id="deviceSectionChanger" class="ui-section-changer">
+				<div>
+					<section class="ui-section-active">Section 1</section>
+					<section>Section 2</section>
+					<section>Section 3</section>
+				</div>
 			</div>
 		</div>
-		<footer class="ui-footer ui-bottom-button">
-		   <a class="ui-btn" href="javascript:void()" id="logoutBtn">Log Out</a>
-		</footer>
 	</div>
 	<div id="logoutPopup" class="ui-popup">
 	    <div class="ui-popup-content">
@@ -35,7 +30,7 @@
 			<a id="logoutOkBtn" href="#" class="ui-btn btn-icon-check">OK</a>
 		</div>
 	</div>
-	<div class="ui-page ui-page-active" id="login">
+	<div class="ui-page" id="login">
 		<header class="ui-header">
 			<h3 class="ui-title">Particle.io</h3>
 		</header>
@@ -60,7 +55,7 @@
 	<div class="ui-popup" id="loadingPopup">
 		<div class="ui-popup-content">
 			<h3 class="ui-title"><i class="icon-spin4 fa fa-spin particle"></i></h3>
-			<h3 class="ui-title" id="loadingMessage particle">Logging in to Particle.io</h3>
+			<h3 class="ui-title" id="loadingMessage">Logging in to Particle.io</h3>
 		</div>
 	</div>
 	<div class="ui-popup" id="errorPopup">
@@ -75,6 +70,27 @@
 			<p id="successMessage">Success!</p>
 		</div>
 	</div>
+	<template id="deviceSectionTemplate">
+		<section data-deviceid="" data-devicename="">
+			<h3 id="deviceName">Device Name</h3>
+			<div id="deviceStatus">Offline</div>
+			<div id="deviceVitals">
+				<i class="icon-battery-full"></i>
+				<button>Refresh</button>
+			</div>
+			<h4>Variables</h4>
+			<div id="deviceVariables"></div>
+			<h4>Functions</h4>
+			<div id="deviceFunctions"></div>
+		</section>
+	</template>
+	<template id="deviceVariable">
+		<h5 id="deviceVariableName"></h5>
+		<p id="deviceVariableValue"></p>
+	</template>
+	<template id="deviceFunction">
+		<h5 id="deviceFunctionName"></h5>
+	</template>
 	<script src="lib/tau/wearable/js/tau.min.js"></script>
 	<script src="js/app.js"></script>
 	<script src="js/lowBatteryCheck.js"></script>

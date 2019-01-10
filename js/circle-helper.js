@@ -10,6 +10,9 @@
 			devices: null
 	}
 	
+	var sectionChanger = null;
+	var pageIndicator = null;
+	
 	function setPreference(property, value) {
 		preferences[property] = value;
 		tizen.preference.setValue(property, value);
@@ -92,6 +95,28 @@
 		tau.openPopup("#logoutPopup");
 	}
 	
+	function createDeviceElements(devices) {
+		let deviceSections = document.getElementById("deviceSections");
+		
+		// Remove existing devices
+		deviceSections.querySelectorAll("section[data-deviceid]").forEach(
+			(deviceSection) => {
+				deviceSection.remove();
+			}
+		);
+		
+		devices.forEach(
+			(device) => {
+				console.log("Creating device element", device);
+				let template = document.getElementById('deviceSectionTemplate');
+				let device = template.content.cloneNode(true);
+				device.dataset.deviceid = device.id;
+				device.dataset.devicename = device.name;
+				deviceSections.appendChild(device);
+			}
+		);
+	}
+	
 	function retrieveDevices() {
 		if (preferences.access_token) {
 			console.log("Trying access token", preferences.access_token);
@@ -117,6 +142,7 @@
 						// Login success
 						console.log("Token success", response);
 						showSuccessPopup("Devices retrieved");
+						//createDeviceElements(response);
 						tau.changePage("#main");
 					}
 				}
@@ -132,11 +158,15 @@
 	function closePopup() {
 		tua.closePopup();
 	}
-		
+	
+	function onSectionChange(evt) {
+		pageIndicator.setActive(evt.detail.active);
+	}
+	
 	function start() {
 		document.addEventListener("DOMContentLoaded", function(event) {
 			tau.openPopup("#splashPopup");
-			document.getElementById("logoutBtn").addEventListener("click", showLogoutPopup);
+			//document.getElementById("logoutBtn").addEventListener("click", showLogoutPopup);
 			document.getElementById("logoutOkBtn").addEventListener("click", logoutBtn);
 			document.getElementById("loginBtn").addEventListener("click", loginBtn);
 			document.getElementById("successPopup").addEventListener("click", closePopup);
@@ -151,6 +181,26 @@
 			if (preferences.username) {
 				document.getElementById("email").value = preferences.username;
 			}
+			
+			// Initialize device page indicator
+			pageIndicator = tau.widget.PageIndicator(document.getElementById("devicePageIndicator"),
+				{
+					numberOfPages: 3
+				}
+			)
+			pageIndicator.setActive(0);
+			
+			// Initialize section changer
+			let deviceSectionChangerElem = document.getElementById("deviceSectionChanger");
+	        sectionChanger = new tau.widget.SectionChanger(deviceSectionChangerElem,
+                {
+                    circular: false,
+                    orientation: 'horizontal',
+                    fillContent: true,
+                    useBouncingEffect: true
+                }
+	        );
+	        deviceSectionChangerElem.addEventListener("sectionchange", onSectionChange);
 			tau.closePopup();
 			retrieveDevices();
 		});
