@@ -115,3 +115,9 @@ app adding his own styles here
 .particle {
     color: #00ADEE;
 }
+
+.ui-content section {
+	overflow: hidden;
+	overflow-y: auto;
+	text-align: center;
+}

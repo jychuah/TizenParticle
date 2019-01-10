@@ -96,25 +96,49 @@
 	}
 	
 	function createDeviceElements(devices) {
-		let deviceSections = document.getElementById("deviceSections");
+		let deviceTemplate = document.getElementById('deviceSectionTemplate');
+		let pageIndicatorContent = document.getElementById("page-indicator-content");
+		while (pageIndicatorContent.firstchild) {
+			pageIndicatorContent.removeChild(pageIndicatorContent.firstChild);
+		}
 		
-		// Remove existing devices
-		deviceSections.querySelectorAll("section[data-deviceid]").forEach(
-			(deviceSection) => {
-				deviceSection.remove();
-			}
-		);
+		let pageIndicatorNode = document.getElementById('page-indicator-content-template').content.cloneNode(true);
+		let deviceSections = pageIndicatorNode.getElementById("deviceSections");
+		
+		// DEBUG
+		//devices = [ ];
 		
 		devices.forEach(
 			(device) => {
-				console.log("Creating device element", device);
-				let template = document.getElementById('deviceSectionTemplate');
-				let device = template.content.cloneNode(true);
-				device.dataset.deviceid = device.id;
-				device.dataset.devicename = device.name;
-				deviceSections.appendChild(device);
+				let deviceNode = deviceTemplate.content.cloneNode(true);
+				deviceSections.appendChild(deviceNode);
+				deviceNode = deviceSections.querySelector('section[data-deviceid="deviceId"]');
+				deviceNode["data-deviceid"] = device.id;
+				deviceNode["data-devicename"] = device.name;
 			}
 		);
+		
+		pageIndicatorContent.appendChild(pageIndicatorNode);
+		
+		// Initialize device page indicator
+		pageIndicator = tau.widget.PageIndicator(document.getElementById("devicePageIndicator"),
+			{
+				numberOfPages: 1 + devices.length
+			}
+		)
+		pageIndicator.setActive(0);
+		// Initialize section changer
+		
+		let deviceSectionChangerElem = document.getElementById("deviceSectionChanger");
+        sectionChanger = new tau.widget.SectionChanger(deviceSectionChangerElem,
+            {
+                circular: false,
+                orientation: 'horizontal',
+                fillContent: true,
+                useBouncingEffect: true
+            }
+        );
+        deviceSectionChangerElem.addEventListener("sectionchange", onSectionChange);
 	}
 	
 	function retrieveDevices() {
@@ -141,8 +165,9 @@
 					} else {
 						// Login success
 						console.log("Token success", response);
+						document.getElementById("loggedInEmail").innerHTML = preferences.username;
 						showSuccessPopup("Devices retrieved");
-						//createDeviceElements(response);
+						createDeviceElements(response);
 						tau.changePage("#main");
 					}
 				}
@@ -154,6 +179,37 @@
 			);
 		}
 	}
+	
+	function initPageIndicator() {
+		var page = document.getElementById("pageIndicatorPage") || document.getElementById("pageIndicatorCirclePage"),
+		changer = document.getElementById("hsectionchanger"),
+		sections = document.querySelectorAll("section"),
+		sectionChanger,
+		elPageIndicator = document.getElementById("pageIndicator"),
+		pageIndicator,
+		pageIndicatorHandler;
+		
+		pageIndicator =  tau.widget.PageIndicator(elPageIndicator, { numberOfPages: sections.length });
+		pageIndicator.setActive(0);
+		// make SectionChanger object
+		sectionChanger = new tau.widget.SectionChanger(changer, {
+			circular: false,
+			orientation: "horizontal",
+			useBouncingEffect: true
+		});
+
+	
+		/**
+		 * sectionchange event handler
+		 */
+		pageIndicatorHandler = function (e) {
+			pageIndicator.setActive(e.detail.active);
+		};
+	
+		changer.addEventListener("sectionchange", pageIndicatorHandler, false);
+	}
+	
+
 	
 	function closePopup() {
 		tua.closePopup();
@@ -181,28 +237,12 @@
 			if (preferences.username) {
 				document.getElementById("email").value = preferences.username;
 			}
-			
-			// Initialize device page indicator
-			pageIndicator = tau.widget.PageIndicator(document.getElementById("devicePageIndicator"),
-				{
-					numberOfPages: 3
-				}
-			)
-			pageIndicator.setActive(0);
-			
-			// Initialize section changer
-			let deviceSectionChangerElem = document.getElementById("deviceSectionChanger");
-	        sectionChanger = new tau.widget.SectionChanger(deviceSectionChangerElem,
-                {
-                    circular: false,
-                    orientation: 'horizontal',
-                    fillContent: true,
-                    useBouncingEffect: true
-                }
-	        );
-	        deviceSectionChangerElem.addEventListener("sectionchange", onSectionChange);
+
 			tau.closePopup();
-			retrieveDevices();
+			//createDeviceElements([{ id: "1", name: "device1" }]);
+			//retrieveDevices();
+
+			initPageIndicator();
 		});
 	}
 	

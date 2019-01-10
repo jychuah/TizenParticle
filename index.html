@@ -9,28 +9,44 @@
 	<link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-	<div class="ui-page ui-page-active ui-indicator-circle-page" id="main">
-		<div class="ui-content">
-			<div id="devicePageIndicator" class="ui-page-indicator" data-layout="circular"></div>
-			<div id="deviceSectionChanger" class="ui-section-changer">
-				<div>
-					<section class="ui-section-active">Section 1</section>
-					<section>Section 2</section>
-					<section>Section 3</section>
-				</div>
+	<!-- Pages -->
+	<div id="pageIndicatorCirclePage" class="ui-page ui-page-active" data-enable-page-scroll="false">
+		<div id="pageIndicator" class="ui-page-indicator" data-layout="circular"></div>
+		<div id="hsectionchanger" class="ui-content">
+			<!-- section changer has only one child. -->
+			<div>
+				<section class="ui-section-active">
+					<h3> Page1 of 6</h3>
+					<p>Content</p>
+					<p>More Content</p>
+					<p>Even More Content</p>
+				</section>
+				<section>
+					<h3> Page2 of 6</h3>
+				</section>
+				<section>
+					<h3> Page3 of 6</h3>
+				</section>
+				<section>
+					<h3> Page4 of 6</h3>
+				</section>
+				<section>
+					<h3> Page5 of 6</h3>
+				</section>
+				<section>
+					<h3> Page6 of 6</h3>
+				</section>
 			</div>
 		</div>
 	</div>
-	<div id="logoutPopup" class="ui-popup">
-	    <div class="ui-popup-content">
-	       You will be logged out of the Particle.io Cloud
-	    </div>
-		<div class="ui-popup-footer ui-side-button ui-grid-col-2">
-			<a id="logoutCancelBtn" href="#" class="ui-btn btn-icon-cancel" data-rel="back">Cancel</a>
-			<a id="logoutOkBtn" href="#" class="ui-btn btn-icon-check">OK</a>
+	<div class="ui-page" id="main">
+		<!-- 
+		<div class="ui-footer ui-bottom-button">
+			<a class="ui-btn" href="javascript:void()" id="logoutBtn">Log Out</a>
 		</div>
+		 -->
 	</div>
-	<div class="ui-page" id="login">
+	<div class="ui-page " id="login">
 		<header class="ui-header">
 			<h3 class="ui-title">Particle.io</h3>
 		</header>
@@ -45,6 +61,17 @@
 		<footer class="ui-footer ui-bottom-button">
 		   <a class="ui-btn" href="javascript:void()" id="loginBtn">Log In</a>
 		</footer>
+	</div>
+	
+	<!-- Popups -->
+	<div id="logoutPopup" class="ui-popup">
+	    <div class="ui-popup-content">
+	       You will be logged out of the Particle.io Cloud
+	    </div>
+		<div class="ui-popup-footer ui-side-button ui-grid-col-2">
+			<a id="logoutCancelBtn" href="#" class="ui-btn btn-icon-cancel" data-rel="back">Cancel</a>
+			<a id="logoutOkBtn" href="#" class="ui-btn btn-icon-check">OK</a>
+		</div>
 	</div>
 	<div class="ui-popup" id="splashPopup">
 		<div class="ui-popup-content">
@@ -70,8 +97,22 @@
 			<p id="successMessage">Success!</p>
 		</div>
 	</div>
+	
+	<!--  Templates -->
+	<template id="page-indicator-content-template">
+		<div id="devicePageIndicator" class="ui-page-indicator" data-layout="circular"></div>
+		<div id="deviceSectionChanger" class="ui-section-changer">
+			<div id="deviceSections">
+				<section class="ui-section-active">
+					<header ui-class="ui-header">Particle.io</header>
+					<p>Logged in as</p>
+					<p>Some more stuff</p>
+				</section>
+			</div>
+		</div>
+	</template>
 	<template id="deviceSectionTemplate">
-		<section data-deviceid="" data-devicename="">
+		<section data-deviceid="deviceId" data-devicename="deviceName">
 			<h3 id="deviceName">Device Name</h3>
 			<div id="deviceStatus">Offline</div>
 			<div id="deviceVitals">
