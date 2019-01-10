@@ -95,11 +95,42 @@
 		tau.openPopup("#logoutPopup");
 	}
 	
+
+	function initPageIndicator() {
+		var page = document.getElementById("main"),
+		changer = document.getElementById("hsectionchanger"),
+		sections = document.querySelectorAll("section"),
+		sectionChanger,
+		elPageIndicator = document.getElementById("pageIndicator"),
+		pageIndicator,
+		pageIndicatorHandler;
+		
+		pageIndicator =  tau.widget.PageIndicator(elPageIndicator, { numberOfPages: sections.length });
+		pageIndicator.setActive(0);
+		// make SectionChanger object
+		sectionChanger = new tau.widget.SectionChanger(changer, {
+			circular: false,
+			orientation: "horizontal",
+			useBouncingEffect: true
+		});
+
+	
+		/**
+		 * sectionchange event handler
+		 */
+		pageIndicatorHandler = function (e) {
+			pageIndicator.setActive(e.detail.active);
+		};
+	
+		changer.addEventListener("sectionchange", pageIndicatorHandler, false);
+	}
+	
+	
 	function createDeviceElements(devices) {
 		let deviceTemplate = document.getElementById('deviceSectionTemplate');
-		let pageIndicatorContent = document.getElementById("page-indicator-content");
-		while (pageIndicatorContent.firstchild) {
-			pageIndicatorContent.removeChild(pageIndicatorContent.firstChild);
+		let mainNode = document.getElementById("main");
+		while (main.firstchild) {
+			pageIndicatorContent.removeChild(main.firstChild);
 		}
 		
 		let pageIndicatorNode = document.getElementById('page-indicator-content-template').content.cloneNode(true);
@@ -118,27 +149,10 @@
 			}
 		);
 		
-		pageIndicatorContent.appendChild(pageIndicatorNode);
+		mainNode.appendChild(pageIndicatorNode);
 		
-		// Initialize device page indicator
-		pageIndicator = tau.widget.PageIndicator(document.getElementById("devicePageIndicator"),
-			{
-				numberOfPages: 1 + devices.length
-			}
-		)
-		pageIndicator.setActive(0);
-		// Initialize section changer
-		
-		let deviceSectionChangerElem = document.getElementById("deviceSectionChanger");
-        sectionChanger = new tau.widget.SectionChanger(deviceSectionChangerElem,
-            {
-                circular: false,
-                orientation: 'horizontal',
-                fillContent: true,
-                useBouncingEffect: true
-            }
-        );
-        deviceSectionChangerElem.addEventListener("sectionchange", onSectionChange);
+		initPageIndicator();
+
 	}
 	
 	function retrieveDevices() {
@@ -180,35 +194,6 @@
 		}
 	}
 	
-	function initPageIndicator() {
-		var page = document.getElementById("pageIndicatorPage") || document.getElementById("pageIndicatorCirclePage"),
-		changer = document.getElementById("hsectionchanger"),
-		sections = document.querySelectorAll("section"),
-		sectionChanger,
-		elPageIndicator = document.getElementById("pageIndicator"),
-		pageIndicator,
-		pageIndicatorHandler;
-		
-		pageIndicator =  tau.widget.PageIndicator(elPageIndicator, { numberOfPages: sections.length });
-		pageIndicator.setActive(0);
-		// make SectionChanger object
-		sectionChanger = new tau.widget.SectionChanger(changer, {
-			circular: false,
-			orientation: "horizontal",
-			useBouncingEffect: true
-		});
-
-	
-		/**
-		 * sectionchange event handler
-		 */
-		pageIndicatorHandler = function (e) {
-			pageIndicator.setActive(e.detail.active);
-		};
-	
-		changer.addEventListener("sectionchange", pageIndicatorHandler, false);
-	}
-	
 
 	
 	function closePopup() {
@@ -239,10 +224,8 @@
 			}
 
 			tau.closePopup();
-			//createDeviceElements([{ id: "1", name: "device1" }]);
+			createDeviceElements([{ id: "1", name: "device1" }]);
 			//retrieveDevices();
-
-			initPageIndicator();
 		});
 	}
 	

@@ -10,42 +10,9 @@
 </head>
 <body>
 	<!-- Pages -->
-	<div id="pageIndicatorCirclePage" class="ui-page ui-page-active" data-enable-page-scroll="false">
-		<div id="pageIndicator" class="ui-page-indicator" data-layout="circular"></div>
-		<div id="hsectionchanger" class="ui-content">
-			<!-- section changer has only one child. -->
-			<div>
-				<section class="ui-section-active">
-					<h3> Page1 of 6</h3>
-					<p>Content</p>
-					<p>More Content</p>
-					<p>Even More Content</p>
-				</section>
-				<section>
-					<h3> Page2 of 6</h3>
-				</section>
-				<section>
-					<h3> Page3 of 6</h3>
-				</section>
-				<section>
-					<h3> Page4 of 6</h3>
-				</section>
-				<section>
-					<h3> Page5 of 6</h3>
-				</section>
-				<section>
-					<h3> Page6 of 6</h3>
-				</section>
-			</div>
-		</div>
+	<div id="main" class="ui-page ui-page-active" data-enable-page-scroll="false">
 	</div>
-	<div class="ui-page" id="main">
-		<!-- 
-		<div class="ui-footer ui-bottom-button">
-			<a class="ui-btn" href="javascript:void()" id="logoutBtn">Log Out</a>
-		</div>
-		 -->
-	</div>
+	
 	<div class="ui-page " id="login">
 		<header class="ui-header">
 			<h3 class="ui-title">Particle.io</h3>
@@ -100,13 +67,15 @@
 	
 	<!--  Templates -->
 	<template id="page-indicator-content-template">
-		<div id="devicePageIndicator" class="ui-page-indicator" data-layout="circular"></div>
-		<div id="deviceSectionChanger" class="ui-section-changer">
+		<div id="pageIndicator" class="ui-page-indicator" data-layout="circular"></div>
+		<div id="hsectionchanger" class="ui-content">
+			<!-- section changer has only one child. -->
 			<div id="deviceSections">
 				<section class="ui-section-active">
-					<header ui-class="ui-header">Particle.io</header>
-					<p>Logged in as</p>
-					<p>Some more stuff</p>
+					<h3> Page1 of 6</h3>
+					<p>Content</p>
+					<p>More Content</p>
+					<p>Even More Content</p>
 				</section>
 			</div>
 		</div>
